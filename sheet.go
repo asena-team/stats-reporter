@@ -45,14 +45,22 @@ func AppendRowToSheet(stats *Stats) error {
 	y, m, d := time.Now().Date()
 	date := fmt.Sprintf("%d.%d.%d", d, m, y)
 
+	valRange, err := sheet.Spreadsheets.Values.Get(SheetID, "A1:D").Do()
+	if err != nil {
+		return err
+	}
+
+	rCount := len(valRange.Values)
 	values.Values = append(values.Values, []interface{}{
 		date,
 		stats.ServerCount,
 		stats.MonthlyVotes,
+		fmt.Sprintf("=B%d-B%d", rCount+1, rCount),
+		fmt.Sprintf("=C%d-C%d", rCount+1, rCount),
 	})
 
 	_, err = sheet.Spreadsheets.Values.
-		Append(SheetID, "A1", values).
+		Append(SheetID, "A1:E1", values).
 		ValueInputOption("USER_ENTERED").
 		Do()
 
