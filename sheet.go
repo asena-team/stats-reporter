@@ -20,22 +20,22 @@ func readCredentials() ([]byte, error) {
 	return bytes, nil
 }
 
-func AppendRowToSheet(stats *Stats) error {
+func AppendRowToSheet(stats *Stats) (*ComparedStats, error) {
 	ctx := context.Background()
 
 	data, err := readCredentials()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	cr, err := google.CredentialsFromJSON(ctx, data, sheets.SpreadsheetsScope)
 	if err != nil {
-		return fmt.Errorf("token initialization error: %s", err)
+		return nil, fmt.Errorf("token initialization error: %s", err)
 	}
 
 	sheet, err := sheets.NewService(ctx, option.WithTokenSource(cr.TokenSource))
 	if err != nil {
-		return fmt.Errorf("failed to init sheets client: %s", err)
+		return nil, fmt.Errorf("failed to init sheets client: %s", err)
 	}
 
 	values := &sheets.ValueRange{
@@ -45,9 +45,9 @@ func AppendRowToSheet(stats *Stats) error {
 	y, m, d := time.Now().Date()
 	date := fmt.Sprintf("%d.%d.%d", d, m, y)
 
-	valRange, err := sheet.Spreadsheets.Values.Get(SheetID, "A1:D").Do()
+	valRange, err := sheet.Spreadsheets.Values.Get(SheetID, "A1:C").Do()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	rCount := len(valRange.Values)
@@ -65,8 +65,15 @@ func AppendRowToSheet(stats *Stats) error {
 		Do()
 
 	if err != nil {
-		return fmt.Errorf("%s", err)
+		return nil, fmt.Errorf("%s", err)
 	}
 
-	return nil
+	lastRow := valRange.Values[rCount-1]
+	cs := &ComparedStats{
+		CurrServerCount:  stats.ServerCount,
+		CurrMonthlyVotes: stats.MonthlyVotes,
+		PrevServerCount:  CastInt(lastRow[1].(string)),
+		PrevMonthlyVotes: CastInt(lastRow[2].(string)),
+	}
+	return cs, nil
 }

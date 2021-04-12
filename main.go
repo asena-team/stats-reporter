@@ -18,6 +18,13 @@ type Stats struct {
 	MonthlyVotes int
 }
 
+type ComparedStats struct {
+	CurrServerCount  int
+	CurrMonthlyVotes int
+	PrevServerCount  int
+	PrevMonthlyVotes int
+}
+
 func init() {
 	log.SetFlags(log.Lshortfile | log.Ltime)
 
@@ -46,7 +53,12 @@ func run() error {
 		return err
 	}
 
-	err = AppendRowToSheet(stats)
+	cs, err := AppendRowToSheet(stats)
+	if err != nil {
+		return err
+	}
+
+	err = SendReportWithWebhook(cs)
 	if err != nil {
 		return err
 	}
