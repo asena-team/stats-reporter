@@ -111,7 +111,7 @@ go run . \
 
 ## Images
 
-![image](https://user-images.githubusercontent.com/20264712/114569767-eca4cb00-9c7d-11eb-8b3e-13ad593fe041.png)
+![image](https://user-images.githubusercontent.com/20264712/114570264-5cb35100-9c7e-11eb-9236-d076d3a37916.png)
 
 *(Incoming daily report. It is in Turkish language but you can translate it into English language very easily.)*
 
