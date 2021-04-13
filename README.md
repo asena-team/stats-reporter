@@ -115,6 +115,8 @@ go run . \
 
 *(Incoming daily report. It is in Turkish language but you can translate it into English language very easily.)*
 
+---
+
 ![image](https://user-images.githubusercontent.com/20264712/114569726-e44c9000-9c7d-11eb-9b56-30968f9fb086.png)
 
 *(A few spreadsheet features.)*
