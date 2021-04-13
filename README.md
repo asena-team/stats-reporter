@@ -73,7 +73,8 @@ gcloud run services add-iam-policy-binding stats-reporter \
 
 **9.** Create a new Cron Scheduler
 
-It allows to collect statistics by sending requests to our application at the end of each day.
+* It allows to collect statistics by sending requests to our application at the end of each day.
+
 ```shell
 # --timezone="Your Time Zone"
 gcloud scheduler jobs create http asena-stats \ 
@@ -85,6 +86,9 @@ gcloud scheduler jobs create http asena-stats \
 ```
 
 ## Local Run & Test
+
+⚠️If you are running locally as a **tool**, you need to set the `'--cli'` parameter
+
 ```shell
 go run . \
   --bot_id $BOT_ID \ 
