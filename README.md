@@ -1,6 +1,8 @@
 # Stats Reporter [![Made With Go](https://img.shields.io/badge/Made%20with-Go-1f425f.svg?color=007EC6)](http://golang.org)
 
-Keep daily progress statistics of your free bot without using a database.
+Keep daily progress statistics of your free bot **without** using a **database**.
+
+![image](https://user-images.githubusercontent.com/20264712/114569483-b2d3c480-9c7d-11eb-912e-89d81f699e73.png)
 
 ## Features
 - Collecting daily server and vote count statistics.
@@ -47,6 +49,14 @@ gcloud services enable sheets.googleapis.com
 **5.** Create a new spreadsheet and give access to the IAM account
 - Create a new Google Sheet if you don’t have one already: [sheets.new](https://sheets.new)
 - Share the Google Sheet with the service account email (above) as an editor:
+
+![1_Lo4Mpgxx_tHiIu_rz9Xlqg](https://user-images.githubusercontent.com/20264712/114568399-c16dac00-9c7c-11eb-86c9-74314db96c7f.png)
+
+*(Click that Share button in the top-right of your Sheet.)*
+
+![1_rXUc52V1hxP-16oRrthfbw](https://user-images.githubusercontent.com/20264712/114568590-eb26d300-9c7c-11eb-967a-af0d6a747b02.png)
+
+*(The service account email should autocomplete for a valid service account.)*
 
 **6.** Build container image and upload Cloud Container Registry
 ```shell
@@ -98,3 +108,13 @@ go run . \
   --sheet_id $SHEET_ID
   --cli
 ```
+
+## Images
+
+![image](https://user-images.githubusercontent.com/20264712/114569767-eca4cb00-9c7d-11eb-8b3e-13ad593fe041.png)
+
+*(Incoming daily report. It is in Turkish language but you can translate it into English language very easily.)*
+
+![image](https://user-images.githubusercontent.com/20264712/114569726-e44c9000-9c7d-11eb-9b56-30968f9fb086.png)
+
+*(A few spreadsheet features.)*
