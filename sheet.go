@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"time"
 
 	"golang.org/x/oauth2/google"
@@ -11,29 +10,15 @@ import (
 	"google.golang.org/api/sheets/v4"
 )
 
-func readCredentials() ([]byte, error) {
-	bytes, err := ioutil.ReadFile("credentials.json")
-	if err != nil {
-		return nil, fmt.Errorf("%w", err)
-	}
-
-	return bytes, nil
-}
-
 func AppendRowToSheet(stats *Stats) (*ComparedStats, error) {
 	ctx := context.Background()
 
-	data, err := readCredentials()
-	if err != nil {
-		return nil, err
-	}
-
-	cr, err := google.CredentialsFromJSON(ctx, data, sheets.SpreadsheetsScope)
+	ts, err := google.DefaultTokenSource(ctx, sheets.SpreadsheetsScope)
 	if err != nil {
 		return nil, fmt.Errorf("token initialization error: %s", err)
 	}
 
-	sheet, err := sheets.NewService(ctx, option.WithTokenSource(cr.TokenSource))
+	sheet, err := sheets.NewService(ctx, option.WithTokenSource(ts))
 	if err != nil {
 		return nil, fmt.Errorf("failed to init sheets client: %s", err)
 	}
