@@ -21,8 +21,11 @@ func SendReportWithWebhook(cs *ComparedStats) error {
 		return fmt.Errorf("discord session failed to start: %s", err)
 	}
 
+	now := time.Now()
+	y, m, d := now.Date()
+	date := fmt.Sprintf("%d.%d.%d", d, m, y)
 	desc := []string{
-		fmt.Sprintf(":date: Tarih: **12.04.2021**"),
+		fmt.Sprintf(":date: Tarih: **%s**", date),
 		fmt.Sprintf(":rocket: Sunucu Sayısı: **%d (%+d)**", cs.CurrServerCount, cs.CurrServerCount-cs.PrevServerCount),
 		fmt.Sprintf(":label: Aylık Oy Sayısı: **%d (%+d)**", cs.CurrMonthlyVotes, cs.PrevMonthlyVotes-cs.PrevMonthlyVotes),
 		fmt.Sprintf(":chart_with_upwards_trend: Büyüme: **%%%+f**", ((float64(cs.CurrServerCount)/float64(cs.PrevServerCount))-1)*100),
@@ -35,7 +38,7 @@ func SendReportWithWebhook(cs *ComparedStats) error {
 					URL:  fmt.Sprintf(sheetURL, SheetID),
 				},
 				Description: strings.Join(desc, "\n"),
-				Timestamp:   time.Now().Format(time.RFC3339),
+				Timestamp:   now.Format(time.RFC3339),
 				Color:       cs.color(),
 			},
 		},
