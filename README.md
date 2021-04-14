@@ -104,8 +104,8 @@ go run . \
   --bot_id $BOT_ID \ 
   --webhook_id $WEBHOOK_ID \
   --webhook_token $WEBHOOK_TOKEN \
-  --dbl_token $DBL_TOKEN
-  --sheet_id $SHEET_ID
+  --dbl_token $DBL_TOKEN \
+  --sheet_id $SHEET_ID \
   --cli
 ```
 
