@@ -55,10 +55,10 @@ func AppendRowToSheet(stats *Stats) (*ComparedStats, error) {
 
 	lastRow := valRange.Values[rCount-1]
 	cs := &ComparedStats{
-		CurrServerCount:  stats.ServerCount,
-		CurrMonthlyVotes: stats.MonthlyVotes,
-		PrevServerCount:  CastInt(lastRow[1].(string)),
-		PrevMonthlyVotes: CastInt(lastRow[2].(string)),
+		CurrServerCount: stats.ServerCount,
+		CurrVoteCount:   stats.MonthlyVotes,
+		PrevServerCount: CastInt(lastRow[1].(string)),
+		PrevVoteCount:   CastInt(lastRow[2].(string)),
 	}
 	return cs, nil
 }

@@ -27,7 +27,7 @@ func SendReportWithWebhook(cs *ComparedStats) error {
 	desc := []string{
 		fmt.Sprintf(":date: Tarih: **%s**", date),
 		fmt.Sprintf(":rocket: Sunucu Sayısı: **%d (%+d)**", cs.CurrServerCount, cs.CurrServerCount-cs.PrevServerCount),
-		fmt.Sprintf(":label: Aylık Oy Sayısı: **%d (%+d)**", cs.CurrMonthlyVotes, cs.PrevMonthlyVotes-cs.PrevMonthlyVotes),
+		fmt.Sprintf(":label: Aylık Oy Sayısı: **%d (%+d)**", cs.CurrVoteCount, cs.CurrVoteCount-cs.PrevVoteCount),
 		fmt.Sprintf(":chart_with_upwards_trend: Büyüme: **%%%+f**", ((float64(cs.CurrServerCount)/float64(cs.PrevServerCount))-1)*100),
 	}
 	_, err = session.WebhookExecute(WebhookID, Token, false, &discordgo.WebhookParams{

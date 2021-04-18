@@ -24,10 +24,10 @@ type Stats struct {
 }
 
 type ComparedStats struct {
-	CurrServerCount  int
-	CurrMonthlyVotes int
-	PrevServerCount  int
-	PrevMonthlyVotes int
+	CurrServerCount int
+	CurrVoteCount   int
+	PrevServerCount int
+	PrevVoteCount   int
 }
 
 func init() {
