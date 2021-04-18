@@ -42,10 +42,11 @@ func AppendRowToSheet(stats *Stats) (*ComparedStats, error) {
 		stats.MonthlyVotes,
 		fmt.Sprintf("=B%d-B%d", rCount+1, rCount),
 		fmt.Sprintf("=C%d-C%d", rCount+1, rCount),
+		fmt.Sprintf("=((B%d/B%d)-1)*100", rCount+1, rCount),
 	})
 
 	_, err = sheet.Spreadsheets.Values.
-		Append(SheetID, "A1:E1", values).
+		Append(SheetID, "A1:F1", values).
 		ValueInputOption("USER_ENTERED").
 		Do()
 
